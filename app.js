@@ -1,0 +1,36 @@
+var pics = ["DSC_0479.jpg",
+"leve5.jpg",
+"moderada5.png",
+"moderado (5).jpg",
+"severa2.jpg",
+"severo (2).jpg",
+"severo.jpg",
+"DSC_0522.jpg",
+"leve.jpg",
+"moderada.jpg",
+"moderado (6).jpg",
+"severa3.jpg",
+"severo (3).jpg",
+"leve (2).jpg",
+"level2.png",
+"moderado (2).jpg",
+"moderado.jpg",
+"severa5.jpg",
+"severo (4).jpg",
+"leve3.png",
+"moderada2.png",
+"moderado (3).jpg",
+"ptOPQZx.png",
+"severa6.jpg",
+"severo (5).jpg",
+"leve4.jpg",
+"moderada3.png",
+"moderado (4).jpg",
+"severa (2).jpg",
+"severa.jpg",
+"severo (6).jpg"];
+
+for (var i = 0; i < pics.length; i++) {
+	var li = '<option value="'+pics[i]+'">'+pics[i]+'</option>';
+    $('#pics').append(li);
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            IMAGE PROCESSING
+        </title>
+        <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        </link>
+    </head>
+    <body onload="analizar_imagen('DSC_0479.jpg')">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Deteccion de fluorosis
+                <select class="form-control" id="pics" name="pics">
+                </select>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <div class="thumbnail">
+                                <canvas id="c">
+                                    
+                                </canvas>
+                                <div class="caption">
+                                    <h3>
+                                        Red removed + to white
+                                    </h3>
+                                    <p>
+                                        ...
+                                    </p>
+                                    <p>
+                                        <a class="btn btn-primary" href="#" role="button">
+                                            Button
+                                        </a>
+                                        <a class="btn btn-default" href="#" role="button">
+                                            Button
+                                        </a>
+                                    </p>
+                                </div>
+                            </img>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <div class="thumbnail" id="resultado">
+                                
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script charset="utf-8" src="node_modules/jquery/dist/jquery.min.js" type="text/javascript">
+        </script>
+        <script charset="utf-8" src="node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript">
+        </script>
+        <script charset="utf-8" src="app.js" type="text/javascript">
+        </script>
+        <script charset="utf-8" type="text/javascript">
+            $(document).on('change','#pics',function(){
+    analizar_imagen($(this).val());
+  })
+  function analizar_imagen(nombre){
+    c.src = "img/"+nombre;
+    var ctx = c.getContext("2d");
+    var img = new Image;
+    img.onload = function() {
+      c.width = img.width;
+      c.height = img.height;
+      ctx.drawImage(this, 0, 0);
+
+      var idata = ctx.getImageData(0,0,c.width,c.height),
+          data = idata.data, len = data.length, i, mix;
+     
+      /* mix = R / 255
+         R = 0             + 255 * mix
+         G = G * (1 - mix) + 255 * mix
+         B = B * (1 - mix) + 255 * mix
+      */
+      for(i = 0; i < len; i+= 4) {
+        mix = data[i] / 255;                           // mix using red
+        data[i  ] = 255 * mix;                         // red channel
+        data[i+1] = data[i+1] * (1 - mix) + 255 * mix; // green channel
+        data[i+2] = data[i+2] * (1 - mix) + 255 * mix; // blue channel
+      }
+      ctx.putImageData(idata,0,0);
+    };
+    img.crossOrigin = "";
+    //img.src = "img/ptOPQZx.png";
+    //img.src = "img/DSC_0479.jpg";
+    img.src = "img/"+nombre;
+    
+    $('#resultado').html(img);
+    $('#resultado').append('<div class="caption"><h3 class="text-center">Original</h3></div>');
+
+    
+  }
+        </script>
+    </body>
+</html>
